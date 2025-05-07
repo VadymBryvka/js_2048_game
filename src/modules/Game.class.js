@@ -53,7 +53,7 @@ class Game {
     this.addRandomTile();
   }
 
-  moveLeft() {
+  cellMerge() {
     let moved = false;
 
     for (let row = 0; row < this.board.length; row++) {
@@ -87,14 +87,26 @@ class Game {
     return moved; // Повертаємо true, якщо плитки змістили
   }
 
+  moveLeft() {
+    if (this.cellMerge()) {
+      this.addRandomTile();
+    }
+
+    this.cellMerge();
+  }
+
   moveRight() {
     this.rotateGrid(this.board, true); // Обертаємо на 180 градусів
     this.rotateGrid(this.board, true);
 
-    const moved = this.moveLeft();
+    const moved = this.cellMerge();
 
     this.rotateGrid(this.board, false);
     this.rotateGrid(this.board, false); // Повертаємо назад
+
+    if (moved) {
+      this.addRandomTile();
+    }
 
     return moved;
   }
@@ -102,9 +114,13 @@ class Game {
   moveUp() {
     this.rotateGrid(this.board, false);
 
-    const moved = this.moveLeft();
+    const moved = this.cellMerge();
 
     this.rotateGrid(this.board, true);
+
+    if (moved) {
+      this.addRandomTile();
+    }
 
     return moved;
   }
@@ -112,9 +128,13 @@ class Game {
   moveDown() {
     this.rotateGrid(this.board, true);
 
-    const moved = this.moveLeft();
+    const moved = this.cellMerge();
 
     this.rotateGrid(this.board, false);
+
+    if (moved) {
+      this.addRandomTile();
+    }
 
     return moved;
   }

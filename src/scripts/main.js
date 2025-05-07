@@ -5,15 +5,19 @@ const game = new Game();
 
 const startButton = document.querySelector('.button');
 const scoreButton = document.querySelector('.game-score');
+const startMessage = document.querySelector('.message-start');
+const loseMessage = document.querySelector('.message-lose');
 
 startButton.addEventListener('click', () => {
   if (startButton.getAttribute('class') === 'button start') {
     startButton.setAttribute('class', 'button restart');
     startButton.textContent = 'Restart';
+    startMessage.style = 'display: none';
     game.start();
   } else {
     // startButton.setAttribute('class', 'button start');
     // startButton.textContent = 'Start';
+    loseMessage.setAttribute('class', 'message message-lose hidden');
     game.restart();
   }
 
@@ -27,22 +31,18 @@ document.addEventListener('keydown', (e) => {
     switch (e.key) {
       case 'ArrowLeft':
         game.moveLeft();
-        game.addRandomTile();
 
         break;
       case 'ArrowRight':
         game.moveRight();
-        game.addRandomTile();
 
         break;
       case 'ArrowUp':
         game.moveUp();
-        game.addRandomTile();
 
         break;
       case 'ArrowDown':
         game.moveDown();
-        game.addRandomTile();
 
         break;
     }
